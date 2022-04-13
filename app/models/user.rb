@@ -27,8 +27,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :photo
-  has_many :comments
-  has_many :follow_requests
-  has_many :like
+  has_many :own_photo, foreign_key: :owner_id, class_name: "Photos"
+  has_many :comments, foreign_key: :author_id
+  has_many :sent_follow_requests, foreign_key: :sender_id, class_name: "FollowRequest"
+  has_many :received_follow_requests, foreign_key: :recipient_id, class_name: "FollowRequest"
+  has_many :likes, foreign_key: :fan_id
+
 end
