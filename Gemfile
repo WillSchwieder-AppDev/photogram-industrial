@@ -65,7 +65,6 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'bullet'
-  
   gem 'faker'
   gem 'pry-rails'
   gem 'rack-canonical-host'
