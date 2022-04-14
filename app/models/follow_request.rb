@@ -24,4 +24,6 @@ class FollowRequest < ApplicationRecord
   belongs_to :sender, class_name: "User"
 
   validates :user_id, uniqueness: { scope: :photo_id, message: "has already liked this photo" }
+
+  enum status: {pending: "pending", rejected: "rejected", accepted: "accepted"}
 end
