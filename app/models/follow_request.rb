@@ -23,7 +23,7 @@ class FollowRequest < ApplicationRecord
   belongs_to :recipient, class_name: "User"
   belongs_to :sender, class_name: "User"
 
-  # validates :sender_id, uniqueness: { scope: :photo_id, message: "has already liked this photo" }
+  validates :sender_id, uniqueness: { scope: :recipient, message: "Already sent friend request" }
 
   enum status: {pending: "pending", rejected: "rejected", accepted: "accepted"}
 
