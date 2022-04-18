@@ -7,10 +7,10 @@
       <ul class="nav nav-pills nav-fill">
         
           <li class="nav-item">
-            <%= link_to "Posts", user_path(@user.username), class: "nav-link active" %>
+            <%= link_to "Posts", user_path(@user.username), class: "nav-link" %>
           </li>
           <li class="nav-item">
-            <%= link_to "Liked Photos", liked_photos_path(@user.username), class: "nav-link" %>
+            <%= link_to "Liked Photos", liked_photos_path(@user.username), class: "nav-link active" %>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Feed</a>
@@ -26,7 +26,7 @@
   </div>
 </div>
 
-  <% current_user.own_photos.each do |photo| %>
-      <%= render "photos/photo", photo: photo %>
+  <% current_user.liked_photos.each do |photo| %>
+    <%= render "photos/photo", photo: photo %>
   <% end %>
 
