@@ -8,7 +8,6 @@ task sample_data: :environment do
   Photo.delete_all
   User.delete_all
 
-
   # Table name: users
 #
 #  id                     :bigint           not null, primary key
@@ -49,14 +48,14 @@ usernames = Array.new { Faker::Name.first_name }
 
   users.each do |first_user|
     users.each do |second_user|
-      if rand < 0.75
+      if rand() < 0.75
         first_user.sent_follow_requests.create(
           recipient: second_user,
           status: FollowRequest.statuses.values.sample
         )
       end
 
-      if rand < 0.75
+      if rand() < 0.75
         second_user.sent_follow_requests.create(
           recipient: first_user,
           status: FollowRequest.statuses.values.sample
