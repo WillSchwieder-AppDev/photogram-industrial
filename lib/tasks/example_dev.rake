@@ -1,43 +1,23 @@
-task sample_data: :environment do
-  p "Creating sample data..."
+desc "Fill the database tables with some sample data"
+task example_sample_data: :environment do
+  starting = Time.now
 
-  if Rails.env.development?
-    FollowRequest.delete_all
-    # Comment.delete_all
-    # Like.delete_all
-    # Photo.delete_all
-    User.delete_all
-  end
-
-
-  # Table name: users
-#
-#  id                     :bigint           not null, primary key
-#  comments_count         :integer          default(0)
-#  email                  :citext           default(""), not null
-#  encrypted_password     :string           default(""), not null
-#  likes_count            :integer          default(0)
-#  private                :boolean          default(TRUE)
-#  remember_created_at    :datetime
-#  reset_password_sent_at :datetime
-#  reset_password_token   :string
-#  username               :citext
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
-
-
+  FollowRequest.delete_all
+  Comment.delete_all
+  Like.delete_all
+  Photo.delete_all
+  User.delete_all
 
   12.times do
     name = Faker::Name.first_name
     User.create(
-      email: Faker::Internet.email,
+      email: "#{name}@example.com",
       password: "password",
-      username: Faker::IDNumber.valid,
+      username: name.downcase,
       private: [true, false].sample,
     )
   end
-  p "#{User.count} users have been created."
-  
+
   users = User.all
 
   users.each do |first_user|
@@ -45,14 +25,14 @@ task sample_data: :environment do
       if rand < 0.75
         first_user.sent_follow_requests.create(
           recipient: second_user,
-          status: ["pending", "accepted", "rejected"].sample
+          status: FollowRequest.statuses.values.sample
         )
       end
 
       if rand < 0.75
         second_user.sent_follow_requests.create(
           recipient: first_user,
-          status: ["pending", "accepted", "rejected"].sample
+          status: FollowRequest.statuses.values.sample
         )
       end
     end
@@ -87,5 +67,4 @@ task sample_data: :environment do
   p "There are now #{Photo.count} photos."
   p "There are now #{Like.count} likes."
   p "There are now #{Comment.count} comments."
-
 end
