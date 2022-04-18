@@ -4,6 +4,7 @@ class CreatePhotos < ActiveRecord::Migration[6.1]
       t.string :image
       t.integer :comments_count, default: 0 
       t.integer :likes_count, default: 0
+      
       t.text :caption
       t.references :owner, null: false, foreign_key: { to_table: :users }
 
