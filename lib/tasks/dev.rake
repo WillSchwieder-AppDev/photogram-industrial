@@ -37,7 +37,7 @@ usernames = Array.new { Faker::Name.first_name }
     User.create(
       email: "#{username}@example.com",
       password: "password",
-      username: Faker::IDNumber.valid,
+      username: username,
       private: [true, false].sample,
     )
   end
