@@ -9,6 +9,7 @@
 #  likes_count            :integer          default(0)
 #  photos_count           :integer          default(0)
 #  private                :boolean          default(TRUE)
+#  profile_picture        :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
