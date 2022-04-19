@@ -39,7 +39,7 @@ usernames = Array.new { Faker::Name.first_name }
       password: "password",
       username: username.downcase,
       private: [true, false].sample,
-      profile_picture: Faker::LoremPixel.image(size: "64x64")
+      profile_picture: Faker::Avatar.image(slug: "my-own-slug", size: "64x64")
     )
   end
 
