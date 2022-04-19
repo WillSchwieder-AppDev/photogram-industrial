@@ -1,0 +1,49 @@
+<div class="row">
+  <div class = "col-md-6 offset-3">
+    <h1> 
+      <%= @user.username %>
+    </h1>
+
+      <ul class="nav nav-pills nav-fill">
+        
+          <li class="nav-item">
+            <%= link_to "Posts", user_path(@user.username), class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Liked Photos", liked_photos_path(@user.username), class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Feed", user_feed_path(@user.username), class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Followers", user_followers_path(@user.username), class: "nav-link active" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Following", user_following_path(@user.username), class: "nav-link" %>
+          </li>
+      </ul>
+
+  </div>
+</div>
+
+ <div class = "row mb-3" >
+  <% current_user.followers.each do |follower| %>
+    <div class ="col-md-6 offset-md-3">
+      <div class="card">
+        <ul>
+          <li class="list-group-item">
+            <div class="media">
+              <img src="<%= follower.profile_picture %> " class="mr-3" alt="..." >
+                <div class="media-body">
+                  <h5 class="mt-0" ><%= follower.username %></h5>
+                  <%= link_to "Posts", user_path(follower.username) %>
+                  <%= link_to "Likes", user_path(follower.username) %>
+                </div>
+              </div>
+          </li>
+        </ul>
+      </div>
+    </div>      
+  <% end %>
+</div>
+
