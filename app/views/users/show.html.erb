@@ -1,42 +1,124 @@
+<div class="row mb-4">
+  <div class="col-md-6 offset-md-3">
+    <div class="media">
+      <img class="mr-3 rounded-circle" width="128" src="<%= @user.profile_picture %>" />
+
+  <div class="media-body">
+    <div class="d-flex justify-content-between align-items-center">
+      <h1 class="mt-0 mb-3 display-4">
+        <%= @user.username %>
+      </h1>
+
+      <div>
+        <span class="badge badge-secondary">
+          <% if @user.private %> 
+            Private
+          <% else %>
+            Public
+          <% end %>
+        </span>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col">
+        <a data-toggle="modal" data-target="#user_701236_followers" href="#">
+
+          <span class="font-weight-bold">
+            <%= @user.accepted_sent_follow_requests.first.status %>
+          </span>
+          
+          followers
+
+</a>      </div>
+
+      <div class="col">
+        <a data-toggle="modal" data-target="#user_701236_following" href="#">
+
+          <span class="font-weight-bold">
+            3
+          </span>
+          
+          following
+
+</a>      </div>
+
+      <div class="col">
+        <a data-toggle="modal" data-target="#user_701236_pending" href="#">
+
+          <span class="font-weight-bold">
+            7
+          </span>
+          
+          pending
+
+</a>      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col">
+
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col">
+          <form action="/follow_requests" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="dlbwvCV3CbWkRXspvIfZzS40L8t4NiMoGOS5Ce1h4-BAxq-euYLE1Y8ngMfyRSIRqS-U0a2H0vJ2Z5jnl7QGVA" />
+
+  <input type="hidden" value="701236" name="follow_request[recipient_id]" id="follow_request_recipient_id" />
+
+  <div class="actions">
+    <input type="submit" name="commit" value="Follow" class="btn btn-outline-secondary btn-block" data-disable-with="Follow" />
+  </div>
+</form>
+      </div>
+    </div>
+
+    <h3 class="h5">
+      Alice Smith
+    </h3>
+
+    <p>
+      Armo conor capto. Termes varietas sumo.
+    </p>
+
+    <p>
+      <a href="http://pollich.com/cinda_anderson">pollich.com/cinda_anderson</a>
+    </p>
+  </div>
+</div>
 
 
-<h1> 
-  <%= @user.username %>
-</h1>
 
-<h2>Own photos</h2>
+<div class="row">
+  <div class = "col-md-6 offset-3">
+    <h1> 
+      <%= @user.username %>
+    </h1>
 
+      <ul class="nav nav-pills nav-fill">
+        
+          <li class="nav-item">
+            <%= link_to "Posts", user_path(@user.username), class: "nav-link active" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Liked Photos", liked_photos_path(@user.username), class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Feed", user_feed_path(@user.username), class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Followers", user_followers_path(@user.username), class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Following", user_following_path(@user.username), class: "nav-link" %>
+          </li>
+      </ul>
+
+  </div>
+</div>
 
   <% current_user.own_photos.each do |photo| %>
-      <div class = "row mb-3" >
-        <div class ="col-md-6 offset-md-3">
-          <div class="card">
-            <%= image_tag photo.image, class: "card-img-top" %>
-            <div class="card-body">
-              <h5 class="card-title"><%= photo.owner.username %> </h5>
-              <p class="card-text"><%= photo.caption %></p>
-            </div>
-            
-            <ul class="list-group list-group-flush">
-              <% photo.comments.each do |comment| %>
-                <li class="list-group-item">
-                  <div class="media">
-                    <img src="..." class="mr-3" alt="...">
-                    <div class="media-body">
-                      <h5 class="mt-0"><%= comment.author.username %></h5>
-                      <p><%= comment.body %></p>
-                    </div>
-                  </div>
-                  
-                </li>
-              <% end %>
-            </ul>
-
-            <div class="card-body">
-              <%= render "comments/form", comment: Comment.new(photo_id: photo.id) %>
-            </div>
-          </div>
-        </div>
-      </div>
+      <%= render "photos/photo", photo: photo %>
   <% end %>
 

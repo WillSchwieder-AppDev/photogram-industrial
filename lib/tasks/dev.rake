@@ -37,8 +37,9 @@ usernames = Array.new { Faker::Name.first_name }
     User.create(
       email: "#{username}@example.com",
       password: "password",
-      username: username,
+      username: username.downcase,
       private: [true, false].sample,
+      profile_picture: Faker::Avatar.image(slug: "my-own-slug", size: "64x64")
     )
   end
 
